@@ -12,7 +12,7 @@ export const products: product[] = [
         name:"Skateboard - 9.6 Big Plant Team",
         title:"Skateboard - 8.6 Big Plant Team",
         price: 1999,
-        image: "https://www.junkyard.se/media/catalog/product/930x/9/2/924020.jpg" 
+        image: "https://www.junkyard.se/media/catalog/product/930x/9/2/924960.jpg" 
     }, {
         name:"Skateboard - 8.6 Big Plant Team",
         title:"Skateboard - 8.6 Big Plant Team",
