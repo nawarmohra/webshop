@@ -6,6 +6,13 @@ export interface ProviderState {
     cartList: product[]
 }
 
+// export interface ProviderState {
+//     cartList: { //objekt
+//         product: product
+//         quantity: number
+//     }[]//array av objekt
+// }
+
 export class Cartprovider extends Component<{}, ProviderState>{
     constructor(props: {}){
         super(props)
