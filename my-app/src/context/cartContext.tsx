@@ -1,25 +1,26 @@
 import React, { useReducer } from "react";
-import { isNull } from "util";
 
 interface CartContextData {
   state: { id: string; count: number }[];
-  addCartItem: (payload?: string) => void;
-  removeCartItem: (payload: string) => void;
+  addCartItem: (string) => void;
+  removeCartItem: (string) => void;
+  updateCartItem: ({ id: string, count: number }) => void;
 }
 
 const CartContext = React.createContext<CartContextData>({
   state: [],
   addCartItem: () => {},
   removeCartItem: () => {},
+  updateCartItem: () => {},
 });
 
 const cartReducer = (state, action) => {
   switch (action.type) {
     case "add_cartitem":
-      const cartProduct = state.find((cartProduct) => {
-        return cartProduct.id == action.payload ? cartProduct.count++ : null;
+      const Product = state.find((cartProduct) => {
+        return cartProduct.id === action.payload ? cartProduct.count++ : null;
       });
-      if (cartProduct) {
+      if (Product) {
         state = [...state];
       } else {
         state = [...state, { id: action.payload, count: 1 }];
@@ -28,7 +29,26 @@ const cartReducer = (state, action) => {
       localStorage.setItem("cart", JSON.stringify(state));
       return state;
     case "remove_cartitem":
-      return null;
+      state = state.filter((cartProduct) => {
+        return cartProduct.id !== action.payload ? cartProduct : null;
+      });
+      state = [...state];
+      localStorage.setItem("cart", JSON.stringify(state));
+      return state;
+    case "update_cartitem":
+      const productToUpdateId = state.findIndex((cartProduct) => {
+        return cartProduct.id === action.payload.id ? cartProduct : null;
+      });
+
+      state = Object.assign([...state], {
+        [productToUpdateId]: {
+          id: action.payload.id,
+          count: action.payload.count,
+        },
+      });
+      localStorage.setItem("cart", JSON.stringify(state));
+
+      return state;
     default:
       return state;
   }
@@ -49,8 +69,14 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: "remove_cartitem", payload });
   };
 
+  const updateCartItem = (payload) => {
+    dispatch({ type: "update_cartitem", payload });
+  };
+
   return (
-    <CartContext.Provider value={{ state, addCartItem, removeCartItem }}>
+    <CartContext.Provider
+      value={{ state, addCartItem, removeCartItem, updateCartItem }}
+    >
       {children}
     </CartContext.Provider>
   );

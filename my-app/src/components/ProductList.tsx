@@ -1,9 +1,8 @@
-import React, { Component, useContext } from "react";
+import React, { useContext } from "react";
 import CartContext from "../context/cartContext";
 import { products } from "../products";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";

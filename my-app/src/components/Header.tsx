@@ -20,7 +20,9 @@ import Badge from "@material-ui/core/Badge";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 import CartContext from "../context/cartContext";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
+import DrawerContext from "../context/drawerContext";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -88,12 +90,25 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Header = ({ handleDrawerClose, handleDrawerOpen, open }) => {
+const Header = () => {
+  const history = useHistory();
   const theme = useTheme();
 
   const classes = useStyles();
 
   const { state } = useContext(CartContext);
+
+  const DrawerState = useContext(DrawerContext);
+  const DrawerOpen = DrawerState.state.DrawerOpen;
+  const { handleDrawerStatus } = useContext(DrawerContext);
+
+  const badgeNumber = () => {
+    let itemsCount = 0;
+    state.map((item) => {
+      return (itemsCount += item.count);
+    });
+    return itemsCount;
+  };
 
   return (
     <div>
@@ -101,19 +116,28 @@ const Header = ({ handleDrawerClose, handleDrawerOpen, open }) => {
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
+          [classes.appBarShift]: DrawerOpen,
         })}
       >
-        <Badge badgeContent={state.length} color="secondary">
+        <Badge
+          badgeContent={badgeNumber()}
+          color="secondary"
+          onClick={() => {
+            history.push("/cart");
+          }}
+          style={{ cursor: "pointer" }}
+        >
           <ShoppingCartIcon fontSize="large" />
         </Badge>
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={() => {
+              handleDrawerStatus();
+            }}
             edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
+            className={clsx(classes.menuButton, DrawerOpen && classes.hide)}
           >
             <MenuIcon />
           </IconButton>
@@ -126,13 +150,17 @@ const Header = ({ handleDrawerClose, handleDrawerOpen, open }) => {
         className={classes.drawer}
         variant="persistent"
         anchor="left"
-        open={open}
+        open={DrawerOpen}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton
+            onClick={() => {
+              handleDrawerStatus();
+            }}
+          >
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (

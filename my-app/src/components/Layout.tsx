@@ -1,20 +1,9 @@
 import React from "react";
-import clsx from "clsx";
-import {
-  makeStyles,
-  useTheme,
-  Theme,
-  createStyles,
-} from "@material-ui/core/styles";
-
-// import { Cartprovider } from "./context/cartProvider";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
 import ProductList from "./ProductList";
 import Grid from "@material-ui/core/Grid";
-import { findByLabelText } from "@testing-library/react";
-import { inherits } from "util";
-import { Container } from "@material-ui/core";
-import { products } from "../products";
+
 import Header from "./Header";
 
 const drawerWidth = 240;
@@ -53,44 +42,17 @@ const useStyles = makeStyles((theme: Theme) =>
       }),
       marginLeft: -drawerWidth,
     },
-    contentShift: {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    },
   })
 );
 
 export default function Layout() {
-  const [open, setOpen] = React.useState(false);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <div className={classes.root}>
-      <Header
-        handleDrawerOpen={handleDrawerOpen}
-        handleDrawerClose={handleDrawerClose}
-        open={open}
-      ></Header>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
+      <Header />
+      <main className={classes.content}>
         <div className={classes.drawerHeader} />
-
-        {/* <Cartprovider> */}
         <Grid
           container
           direction="row"

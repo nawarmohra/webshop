@@ -2,13 +2,18 @@ import React, { useContext } from "react";
 import Header from "./Header";
 import CartContext from "../context/cartContext";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import {
+  Table,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableFooter,
+} from "@material-ui/core/";
 import Paper from "@material-ui/core/Paper";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { products } from "../products";
 
 const StyledTableCell = withStyles((theme) => ({
@@ -36,44 +41,61 @@ const useStyles = makeStyles({
   },
 });
 
-const Product = (id, count) => {
-  let product;
-  product = products.find((product) => {
-    return product.id == id ? product : null;
-  });
-  return (
-    <StyledTableRow key={product.name}>
-      <StyledTableCell component="th" scope="row">
-        <img src={product.image} style={{ height: 80 }}></img>
-      </StyledTableCell>
-      <StyledTableCell align="right">{product.title}</StyledTableCell>
-      <StyledTableCell align="right">{product.price}</StyledTableCell>
-      <StyledTableCell align="right">{count}</StyledTableCell>
-      <StyledTableCell align="right">{count * product.price}</StyledTableCell>
-    </StyledTableRow>
-  );
-};
-
 const Cart = () => {
-  const { state } = useContext(CartContext);
-  const [open, setOpen] = React.useState(false);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const { updateCartItem, removeCartItem, state } = useContext(CartContext);
 
   const classes = useStyles();
 
+  let totalPrice = 0;
+
+  const Product = (id, count) => {
+    let product;
+    product = products.find((product) => {
+      return product.id === id ? product : null;
+    });
+    totalPrice += product.price * count;
+    return (
+      <StyledTableRow key={product.name}>
+        <StyledTableCell component="th" scope="row">
+          <img
+            src={product.image}
+            style={{ height: 80 }}
+            alt={product.image}
+          ></img>
+        </StyledTableCell>
+        <StyledTableCell align="right">{product.title}</StyledTableCell>
+        <StyledTableCell align="right">{product.price}</StyledTableCell>
+        <StyledTableCell align="right">
+          <input
+            type="number"
+            // defaultValue={count}
+            value={count}
+            onChange={(e) => {
+              let id = product.id;
+              let count = parseInt(e.currentTarget.value);
+              return count > 1
+                ? updateCartItem({ id, count })
+                : updateCartItem({ id, count: 1 });
+            }}
+          />
+        </StyledTableCell>
+        <StyledTableCell align="right">{count * product.price}</StyledTableCell>
+        <StyledTableCell align="right">
+          <IconButton
+            onClick={() => {
+              removeCartItem(id);
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </StyledTableCell>
+      </StyledTableRow>
+    );
+  };
+
   return (
     <div>
-      <Header
-        handleDrawerOpen={handleDrawerOpen}
-        handleDrawerClose={handleDrawerClose}
-        open={open}
-      ></Header>
+      <Header />
 
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
@@ -84,11 +106,23 @@ const Cart = () => {
               <StyledTableCell align="right">Price</StyledTableCell>
               <StyledTableCell align="right">Count</StyledTableCell>
               <StyledTableCell align="right">Total Price</StyledTableCell>
+              <StyledTableCell align="right">operation</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {state.map((row) => Product(row.id, row.count))}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <StyledTableCell
+                colSpan={5}
+                align="right"
+                style={{ fontWeight: "bold" }}
+              >
+                Total Checkout : {totalPrice}
+              </StyledTableCell>
+            </TableRow>
+          </TableFooter>
         </Table>
       </TableContainer>
     </div>

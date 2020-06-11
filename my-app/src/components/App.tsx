@@ -1,19 +1,19 @@
-import React, { useContext } from "react";
-import { Container } from "@material-ui/core";
+import React from "react";
 import { CartProvider } from "../context/cartContext";
-import { products } from "../products";
-import ProductList from "./ProductList";
+import { DrawerProvider } from "../context/drawerContext";
 import Router from "../router/router";
 
 // const [Provider] = useContext(CartContext);
 
 function App() {
   return (
-    <CartProvider>
-      <div className="App">
-        <Router />
-      </div>
-    </CartProvider>
+    <DrawerProvider>
+      <CartProvider>
+        <div className="App">
+          <Router />
+        </div>
+      </CartProvider>
+    </DrawerProvider>
   );
 }
 
