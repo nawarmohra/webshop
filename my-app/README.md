@@ -1,8 +1,8 @@
-Skateboard Shop
+<h1>Skateboard Shop</h1>
 
-Av: Nawar Mohra, Amir Shishengari och Frida Baldvinsdottir
-Systemutveckling Ramverk, 25 yhp
-Wie19, Medieinstitutet
+Av: Nawar Mohra, Amir Shishengari och Frida Baldvinsdottir<br>
+Systemutveckling Ramverk, 25 yhp<br>
+Wie19, Medieinstitutet<br>
 
 Skateboard Shop är en e-handel som säljer skateboards online. E-handeln är byggd i React, Material UI, Typescript, Formik, Yup och CSS.
 
