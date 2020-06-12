@@ -7,18 +7,9 @@ import Button from "@material-ui/core/Button";
 import { useParams } from "react-router-dom";
 import CartContext from "../context/cartContext";
 
-const SingleProduct = (props: {
-  avatarSrc: string;
-  title: string;
-  subtitle: string;
-  descrption: Text;
-  imgSrc: string;
-}) => {
+const SingleProduct = () => {
   let { id } = useParams();
-  let product;
-  product = products.find((product) => {
-    return product.id === id ? product : null;
-  });
+  const product = products.find((product) => product.id === id);
 
   const { addCartItem } = useContext(CartContext);
 
@@ -34,42 +25,48 @@ const SingleProduct = (props: {
             marginTop: 30,
           }}
         >
-          <Grid container spacing={2} style={{ marginBottom: 30 }}>
-            <Grid item>
-              <img
-                style={{ height: 550, cursor: "pointer" }}
-                src={product.image}
-                alt={product.title}
-              />
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm container>
-            <Typography
-              gutterBottom
-              style={{ cursor: "pointer" }}
-              variant="subtitle1"
-            >
-              {product.title}
-            </Typography>
-          </Grid>
-          <Grid item xs>
-            <Typography gutterBottom variant="subtitle1">
-              ${product.price}
-            </Typography>
-          </Grid>
-          <Grid item xs style={{ marginBottom: 30 }}>
-            <Button
-              variant="contained"
-              color="primary"
-              data-id={product.id}
-              onClick={(e) => {
-                const id = e.currentTarget.dataset.id;
-                addCartItem(id);
-              }}
-            >
-              Add to cart
-            </Button>
-          </Grid>
+          {product ? (
+            <>
+              <Grid container spacing={2} style={{ marginBottom: 30 }}>
+                <Grid item>
+                  <img
+                    style={{ height: 550, cursor: "pointer" }}
+                    src={product.image}
+                    alt={product.title}
+                  />
+                </Grid>
+              </Grid>
+              <Grid item xs={12} sm container>
+                <Typography
+                  gutterBottom
+                  style={{ cursor: "pointer" }}
+                  variant="subtitle1"
+                >
+                  {product.title}
+                </Typography>
+              </Grid>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1">
+                  ${product.price}
+                </Typography>
+              </Grid>
+              <Grid item xs style={{ marginBottom: 30 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  data-id={product.id}
+                  onClick={(e) => {
+                    const id = e.currentTarget.dataset.id;
+                    addCartItem(id);
+                  }}
+                >
+                  Add to cart
+                </Button>
+              </Grid>
+            </>
+          ) : (
+            <h2>This product does not exist....</h2>
+          )}
         </Grid>
       </Grid>
     </div>
