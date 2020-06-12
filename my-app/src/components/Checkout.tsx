@@ -1,21 +1,18 @@
 import React from 'react';
 //import "./MyForm.css"
+import Header from "./Header";
 import {Formik, Form } from 'formik'
 import * as Yup from "yup";
 import FormikSelect , { FormikSelectItem } from "../context/MySelectForm"
 import Button from '@material-ui/core/Button' 
-
 import FormikField from "../context/MyForm";
+import Grid from "@material-ui/core/Grid";
 
-//Denna fil publiceras.
-
-//my initialValues
 interface FormValues {
     name: string;
     position: string;
 }
-//declare my initialValues that we will place in Formik initialValius funktion.
-//This is an object
+
 const initialValues: FormValues = {
     name: '',
     position: ''
@@ -79,8 +76,15 @@ export const MyForm: React.FC= () => {
     }
     
     return (
-    <div className="MyForm">
-    <h1>Dina kontaktuppgifter</h1>
+    <div >
+        
+        <Header />
+        <Grid className="MyForm"
+        xs={9}
+        spacing={3}
+        style={{ margin: "auto" }}
+        > 
+            <h1>Dina kontaktuppgifter</h1>
         <Formik 
             initialValues={initialValues}
             onSubmit = {handleSubmit}
@@ -88,6 +92,7 @@ export const MyForm: React.FC= () => {
         >
             {({dirty, isValid}) => {
                 return (
+                    
                     <Form>
                         <FormikField name ="name" label="Name" required />
                         <FormikField name ="adress" label="Adress" required />
@@ -100,13 +105,14 @@ export const MyForm: React.FC= () => {
                         <FormikSelect name="position" items={positionItems2}label="Fraktalternativ" required />
 
                         <Button variant="contained" color="primary" disabled={!dirty || !isValid} type = "submit">
-                            Skicka
+                            Send
                         </Button>
                     </Form>
                     
                 )
             }}
         </Formik>
+    </Grid>
     </div>
     );
 };

@@ -17,6 +17,9 @@ import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { products } from "../products";
+import { pathToFileURL } from "url";
+import { useHistory, Link } from "react-router-dom";
+
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -44,6 +47,7 @@ const useStyles = makeStyles({
 });
 
 const Cart = () => {
+  const history = useHistory();
   const { updateCartItem, removeCartItem, state } = useContext(CartContext);
 
   const classes = useStyles();
@@ -93,6 +97,7 @@ const Cart = () => {
         </StyledTableCell>
       </StyledTableRow>
     );
+    
   };
 
   return (
@@ -130,11 +135,17 @@ const Cart = () => {
                 align="right"
                 style={{ fontWeight: "bold" }}
               >
+            
+              <Link to="/checkout">
                 <Button 
-                  variant="contained"
-                  color="secondary"
-                  startIcon={<CloudUploadIcon />}
-                > Checkout </Button>
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<CloudUploadIcon />}
+                    >
+                  Checkout
+                </Button>
+              </Link>
+
              </StyledTableCell>
             </TableRow>
           </TableFooter>
