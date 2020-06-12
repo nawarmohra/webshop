@@ -100,7 +100,7 @@ export const MyForm: React.FC= () => {
                         <FormikSelect name="position" items={positionItems2}label="Fraktalternativ" required />
 
                         <Button variant="contained" color="primary" disabled={!dirty || !isValid} type = "submit">
-                            Primary
+                            Skicka
                         </Button>
                     </Form>
                     
