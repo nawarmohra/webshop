@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import Header from "./Header";
 import CartContext from "../context/cartContext";
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import {
   Table,
@@ -9,6 +10,7 @@ import {
   TableHead,
   TableRow,
   TableBody,
+  Button,
   TableFooter,
 } from "@material-ui/core/";
 import Paper from "@material-ui/core/Paper";
@@ -121,6 +123,19 @@ const Cart = () => {
               >
                 Total Checkout : {totalPrice}
               </StyledTableCell>
+            </TableRow>
+            <TableRow>
+            <StyledTableCell
+                colSpan={5}
+                align="right"
+                style={{ fontWeight: "bold" }}
+              >
+                <Button 
+                  variant="contained"
+                  color="secondary"
+                  startIcon={<CloudUploadIcon />}
+                > Checkout </Button>
+             </StyledTableCell>
             </TableRow>
           </TableFooter>
         </Table>
