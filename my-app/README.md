@@ -1,3 +1,44 @@
+Skateboard Shop
+
+Av: Nawar Mohra, Amir Shishengari och Frida Baldvinsdottir
+Systemutveckling Ramverk, 25 yhp
+Wie19, Medieinstitutet
+
+Skateboard Shop är en e-handel som säljer skateboards online. E-handeln är byggd i React, Material UI, Typescript, Formik, Yup och CSS.
+
+Beskrivning
+
+Detta är en laboration som vi har fått som grupparbete om tre. Uppgiften går ut på att bygga en e-handel med hjälp av React, Typescript och valfritt designsystem. Webbshopen består av en startsida där alla våra produkter listas, en produktsida där en utvald produkt visas och en utcheckningssida där kunden har möjligheten att slutföra sitt köp. Vi skulle använda oss av ett designsystem för att skapa layouten samt grafiska element. Vi valde designsystemet Material UI.
+
+Tekniker vi har använt
+
+Vi har använt oss av Material UI för designen av webbshopen. Formik är en komponent till Material UI för att skapa formulär och Yup för valideringsregler i samtliga fält i formuläret. 
+Startsida: Här listar vi samtliga produkter. Vi har en kundvagnsikon som man kan klicka på för att komma till kundvagnen. Produktilderna är klickbara och då får du upp den enskilda produkten och dess information.
+Kundvagn: Här listas produkterna som du lagt i kundvagnen med miniatyrbild till vänster, produktnamn, pris, antal. Här har du möjlighet att både öka och minska antal för varje produkt eller genom att klicka på papperskorgen ta bort produkten ur kundvagnen. Totalpriset visas för samtliga varor i kundvagnen.
+Checkout: Formulär som kunden fyller i. Formulärfälten har valideringsregler vilket gör att kunden kan endast genomföra sin beställning om alla fält är ifyllda. Här har kunden möjlighet att välja fraktsätt (Postnord, DHL, Schenker) och betalsätt (Kontokort, faktura, Swish)
+Tack för ditt köp-sida: Enkel sida med text.
+
+Project Screen Shots
+
+
+Installation- och Setupinstruktioner
+
+Node och Npm, installation: 
+https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+React och typescript: https://reactjs.org/docs/getting-started.html
+Material UI: https://material-ui.com/getting-started/installation/
+Formik: https://www.npmjs.com/package/formik-typed
+Yup: https://www.npmjs.com/package/@types/yup
+
+Körinstruktioner
+
+När ovanstående är installerat i programmet körs appen i gång genom att skriva npm start i terminalen.
+
+
+
+
+____________________________________________________________________________________
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -42,3 +83,4 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
