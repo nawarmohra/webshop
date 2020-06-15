@@ -5,6 +5,7 @@ interface CartContextData {
   addCartItem: (string) => void;
   removeCartItem: (string) => void;
   updateCartItem: ({ id: string, count: number }) => void;
+  emptyCart: () => void;
 }
 
 const CartContext = React.createContext<CartContextData>({
@@ -12,6 +13,7 @@ const CartContext = React.createContext<CartContextData>({
   addCartItem: () => {},
   removeCartItem: () => {},
   updateCartItem: () => {},
+  emptyCart: () => {},
 });
 
 const cartReducer = (state, action) => {
@@ -27,7 +29,9 @@ const cartReducer = (state, action) => {
       }
 
       localStorage.setItem("cart", JSON.stringify(state));
+
       return state;
+
     case "remove_cartitem":
       state = state.filter((cartProduct) => {
         return cartProduct.id !== action.payload ? cartProduct : null;
@@ -48,6 +52,10 @@ const cartReducer = (state, action) => {
       });
       localStorage.setItem("cart", JSON.stringify(state));
 
+      return state;
+    case "empty_cart":
+      localStorage.removeItem("cart");
+      state = [];
       return state;
     default:
       return state;
@@ -73,9 +81,13 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: "update_cartitem", payload });
   };
 
+  const emptyCart = () => {
+    dispatch({ type: "empty_cart" });
+  };
+
   return (
     <CartContext.Provider
-      value={{ state, addCartItem, removeCartItem, updateCartItem }}
+      value={{ state, addCartItem, removeCartItem, updateCartItem, emptyCart }}
     >
       {children}
     </CartContext.Provider>
