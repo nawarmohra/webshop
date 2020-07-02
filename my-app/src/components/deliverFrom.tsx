@@ -1,41 +1,98 @@
-import React, { Component, useContext, useState } from "react";
-//import "./MyForm.css"
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import { Redirect } from "react-router-dom";
-import Header from "./Header";
-import { FormHelperText } from "@material-ui/core";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import paymentMethod from "./paymentMethod";
+import React, { Fragment } from "react"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import Divider from "@material-ui/core/Divider"
+import Button from "@material-ui/core/Button"
 
-export default function DeliverFrom() {
-  const [deliveryType, setdeliveryType] = useState("Postnord");
 
-  const deliveryTypeChanged = function (deliveryType) {
-    setdeliveryType(deliveryType);
-  };
-
+const deliverFrom = ({
+  handleNext,
+  handleBack,
+  values: { firstName, lastName, adress, zip, city, email, phone, shipping, payment, cardName, cardNumber, cvv }
+}) => {
   return (
-    <div>
-      <FormControl required>
-        <Select
-          id="demo-customized-select-native"
-          value={deliveryType}
-          onChange={(deliveryType) => {
-            deliveryTypeChanged(deliveryType.target.value);
-          }}
+    <Fragment>
+      <List disablePadding>
+        <ListItem>
+          <ListItemText primary="First Name" secondary={firstName} />
+        </ListItem>
+
+        <Divider />
+
+        <ListItem>
+          <ListItemText primary="Last Name" secondary={lastName} />
+        </ListItem>
+
+        <Divider />
+
+        <ListItem>
+          <ListItemText primary="Adress" secondary={adress} />
+        </ListItem>
+
+        <Divider />
+
+        <ListItem>
+          <ListItemText primary="Postnummer" secondary={zip} />
+        </ListItem>
+
+        <Divider />
+
+        <ListItem>
+          <ListItemText primary="Postort" secondary={city} />
+        </ListItem>
+
+        <Divider />
+
+        <ListItem>
+          <ListItemText primary="E-postadress" secondary={email} />
+        </ListItem>
+
+        <ListItem>
+          <ListItemText primary="Telefonnummer" secondary={phone} />
+        </ListItem>
+
+        <Divider />
+
+        <ListItem>
+          <ListItemText primary="Frakt" secondary={shipping} />
+        </ListItem>
+
+        <Divider />
+
+        <ListItem>
+          <ListItemText primary="Betalningssätt" secondary={payment} />
+        </ListItem>
+
+        <Divider />
+
+        <Divider />
+
+        <ListItem>
+          <ListItemText
+            primary="phone"
+            secondary={phone.length > 0 ? phone : "Not Provided"}
+          />
+        </ListItem>
+      </List>
+
+      <div
+        style={{ display: "flex", marginTop: 50, justifyContent: "flex-end" }}
+      >
+        <Button variant="contained" color="default" onClick={handleBack}>
+          Back
+        </Button>
+        <Button
+          style={{ marginLeft: 20 }}
+          variant="contained"
+          color="secondary"
+          onClick={handleNext}
         >
-          <option aria-label="None" value="" />
-          <option value={"Postnord"}>Postnord 3-6 arbetsdagar </option>
-          <option value={"DHL Express"}>DHL Express 1-3 arbetsdagar </option>
-          <option value={"Bring"}>Bring 1-3 arbetsdagar</option>
-        </Select>
-        {(deliveryType == "Bring" || deliveryType == "DHL Express") && (
-          <p>{deliveryType} will costs 100kr</p>
-        )}
-      </FormControl>
-    </div>
-  );
+          Bekräfta och fortsätt
+        </Button>
+      </div>
+    </Fragment>
+  )
 }
+
+export default deliverFrom;
