@@ -1,32 +1,21 @@
-import React, { useContext } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Paper from "@material-ui/core/Paper";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
-import Typography from "@material-ui/core/Typography";
-import AddressForm from "./AddressForm";
-import PaymentMethod from "./paymentMethod";
-import DeliverFrom from "./deliverFrom";
-import Header from "./Header";
-import cartContext from "../context/cartContext";
+import React from "react"
+import PropTypes from "prop-types"
+import withStyles from "@material-ui/core/styles/withStyles"
+import CssBaseline from "@material-ui/core/CssBaseline"
+//import AppBar from "@material-ui/core/AppBar"
+import Toolbar from "@material-ui/core/Toolbar"
+import Paper from "@material-ui/core/Paper"
+import Typography from "@material-ui/core/Typography"
+//import Divider from "@material-ui/core/Divider"
+import StepForm from "./StepForm"
+import IconButton from "@material-ui/core/IconButton"
+import Header from "./Header"
 
-function Copyright() {
-  return (
-    <div>
-      <Header />
-    </div>
-  );
-}
-
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   appBar: {
     position: "relative",
+    paddingRight: 10,
+    paddingLeft: 10
   },
   layout: {
     width: "auto",
@@ -35,123 +24,64 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       width: 600,
       marginLeft: "auto",
-      marginRight: "auto",
-    },
+      marginRight: "auto"
+    }
   },
   paper: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
-      padding: theme.spacing(3),
-    },
-  },
-  stepper: {
-    padding: theme.spacing(3, 0, 5),
-  },
-  buttons: {
-    display: "flex",
-    justifyContent: "flex-end",
-  },
-  button: {
-    marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1),
-  },
-}));
-
-const steps = ["Shipping address", "Payment details", "Review your order"];
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentMethod />;
-    case 2:
-      return <DeliverFrom />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
-
-export default function Checkout() {
-  const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-
-  const { emptyCart } = useContext(cartContext);
-
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-
-    if (activeStep === steps.length - 1) {
-      emptyCart();
+      marginTop: theme.spacing(8),
+      marginBottom: theme.spacing(8),
+      padding: theme.spacing(3)
     }
-  };
+  }
+})
 
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
-
+const Checkout= ({ classes }) => {
   return (
-    <React.Fragment>
+    <div className="Checkout">
       <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
+      {/* <AppBar position="static" className={classes.appBar}> */}
         <Toolbar>
           <Typography variant="h6" color="inherit" noWrap>
-            Company name
+            {
+              <div>
+                <Header />
+              </div>
+              }
+
+
           </Typography>
+          
         </Toolbar>
-      </AppBar>
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
-            Checkout
-          </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <React.Fragment>
-            {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
-                </Typography>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                {getStepContent(activeStep)}
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
-                    </Button>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                  </Button>
-                </div>
-              </React.Fragment>
-            )}
-          </React.Fragment>
+      {/* </AppBar> */}
+      {/* <main className={classes.layout}> */}
+        <Typography variant="h4" align="center" style={{ marginTop: 80 }}>
+          Checkout
+
+        </Typography>
+        <Typography
+          variant="subtitle2"
+          align="center"
+          style={{ marginTop: 10, marginBottom: 10 }}
+        >
+          Observera att alla rader måste vara ifyllda
+        </Typography>
+        <div>
+        <Paper>
+        
+          <StepForm />
+       
         </Paper>
-        <Copyright />
-      </main>
-    </React.Fragment>
-  );
+        </div>
+        
+        
+       
+        
+    </div>
+  )
 }
+
+export default Checkout

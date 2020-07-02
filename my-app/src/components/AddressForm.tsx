@@ -1,125 +1,246 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
+import React, { Fragment } from "react"
+import Grid from "@material-ui/core/Grid"
+import TextField from "@material-ui/core/TextField"
+import FormControl from "@material-ui/core/FormControl"
+import Select from "@material-ui/core/Select"
+import InputLabel from "@material-ui/core/InputLabel"
+import MenuItem from "@material-ui/core/MenuItem"
+import Button from "@material-ui/core/Button"
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-export default function AddressForm() {
+
+
+
+// Destructure props
+// const FirstStep
+const AddressForm  = ({
+  handleNext,
+  handleChange,
+  values: { firstName, lastName, adress, zip, city, email, phone, shipping, payment },
+  filedError,
+  isError
+}) => {
+  const isEmpty =
+    firstName.length > 0 &&
+    lastName.length > 0 &&
+    adress.length > 0 &&
+    zip.length > 0 &&
+    city.length > 0 &&
+    phone.length > 0 &&
+    email.length > 0 &&
+    shipping.length > 0 &&
+    payment.length > 0 
+    // cardName.length > 0 && 
+    // cardNumber.length > 0 && 
+    // cvv.length > 0 
+
+    // cardName, cardNumber, cvv
+
   return (
-    <React.Fragment>
+    <Fragment>
       <Typography variant="h6" gutterBottom>
-        Shipping address
+        Adressuppgifter
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
-            required
-            id="firstName"
+          //   required
+          //   id="firstName"
+          //   name="firstName"
+          //   label="First name"
+          //   fullWidth
+          //   autoComplete="given-name"
+          //   inputProps={{
+          //       minlength : 5,
+          //       required: true
+          //   }}
+          // />
+          fullWidth
+            label="Förnamn"
             name="firstName"
-            label="First name"
-            fullWidth
-            autoComplete="given-name"
-            inputProps={{
-                minlength : 5,
-                required: true
-            }}
+            placeholder="Ditt förnamn"
+            defaultValue={firstName}
+            onChange={handleChange("firstName")}
+            margin="normal"
+            error={filedError.firstName !== ""}
+            helperText={
+              filedError.firstName !== "" ? `${filedError.firstName}` : ""
+            }
+            required
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            required
-            id="lastName"
+          //   required
+          //   id="lastName"
+          //   name="lastName"
+          //   label="Last name"
+          //   fullWidth
+          //   autoComplete="family-name"
+          //   inputProps={{
+          //       minlength : 5,
+          //       required: true
+          //   }}
+          // />
+          fullWidth
+            label="Efternamn"
             name="lastName"
-            label="Last name"
-            fullWidth
-            autoComplete="family-name"
-            inputProps={{
-                minlength : 5,
-                required: true
-            }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
+            placeholder="Ditt efternamn"
+            defaultValue={lastName}
+            onChange={handleChange("lastName")}
+            margin="normal"
+            error={filedError.lastName !== ""}
+            helperText={
+              filedError.lastName !== "" ? `${filedError.lastName}` : ""
+            }
             required
-            id="address1"
-            name="address1"
-            label="Address line 1"
-            fullWidth
-            autoComplete="shipping address-line1"
-            inputProps={{
-                minlength : 5,
-                required: true
-            }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="address2"
-            name="address2"
-            label="Address line 2"
-            fullWidth
-            autoComplete="shipping address-line2"
-            inputProps={{
-                minlength : 5,
-                required: true
-            }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+          //   required
+          //   id="address1"
+          //   name="address1"
+          //   label="Address line 1"
+          //   fullWidth
+          //   autoComplete="shipping address-line1"
+          //   inputProps={{
+          //       minlength : 5,
+          //       required: true
+          //   }}
+          // />
+          fullWidth
+            label="Adress"
+            name="adress"
+            placeholder="Din adress"
+            defaultValue={adress}
+            onChange={handleChange("adress")}
+            margin="normal"
+            error={filedError.adress !== ""}
+            helperText={
+              filedError.adress !== "" ? `${filedError.adress}` : ""
+            }
             required
-            id="city"
-            name="city"
-            label="City"
-            fullWidth
-            autoComplete="shipping address-level2"
-            inputProps={{
-                minlength : 5,
-                required: true
-            }} 
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="State/Province/Region" fullWidth />
-        </Grid>
-        <Grid item xs={12} sm={6}>
           <TextField
-            required
-            id="zip"
+          //   id="address2"
+          //   name="address2"
+          //   label="Address line 2"
+          //   fullWidth
+          //   autoComplete="shipping address-line2"
+          //   inputProps={{
+          //       minlength : 5,
+          //       required: true
+          //   }}
+          // />
+          fullWidth
+            label="Postnummer"
             name="zip"
-            type="number"
-            label="Zip / Postal code"
-            fullWidth
-            autoComplete="shipping postal-code"
-            inputProps={{
-                minlength : 3,
-                required: true
-            }} 
+            placeholder=" xxx xx"
+            defaultValue={zip}
+            onChange={handleChange("zip")}
+            margin="normal"
+            error={filedError.zip !== ""}
+            helperText={filedError.zip !== "" ? `${filedError.zip}` : ""}
+            required
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
+          //   required
+          //   id="city"
+          //   name="city"
+          //   label="City"
+          //   fullWidth
+          //   autoComplete="shipping address-level2"
+          //   inputProps={{
+          //       minlength : 5,
+          //       required: true
+          //   }} 
+          // />
+          fullWidth
+            label="Postort"
+            name="city"
+            placeholder="Din postort"
+            defaultValue={city}
+            onChange={handleChange("city")}
+            margin="normal"
+            error={filedError.city !== ""}
+            helperText={filedError.city !== "" ? `${filedError.city}` : ""}
             required
-            id="country"
-            name="country"
-            label="Country"
+          />
+          <Grid item xs={12} sm={6}>
+          <TextField
             fullWidth
-            autoComplete="shipping country"
-            inputProps={{
-                minlength : 5,
-                required: true
-            }}
+            label="E-post"
+            name="email"
+            placeholder="Din e-postaddress"
+            type="email"
+            defaultValue={email}
+            onChange={handleChange("email")}
+            margin="normal"
+            error={filedError.email !== ""}
+            helperText={filedError.email !== "" ? `${filedError.email}` : ""}
+            required
           />
         </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="Use this address for payment details"
+        <Grid item xs={12} sm={6}>
+        <TextField
+            fullWidth
+            label="Telefonnummer"
+            name="phone"
+            placeholder="Format: xxx-xxxxxxx"
+            defaultValue={phone}
+            onChange={handleChange("phone")}
+            margin="normal"
+            error={filedError.phone !== ""}
+            helperText={filedError.phone !== "" ? `${filedError.phone}` : ""}
+            required
           />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required margin="normal">
+            <InputLabel htmlFor="shipping">Leveranssätt</InputLabel>
+            <Select value={shipping} onChange={handleChange("shipping")}>
+              <MenuItem value={"PostNord"}>PostNord, 62 timmar</MenuItem>
+              <MenuItem value={"dhl"}>DHL Express, 24 timmar, 100kr</MenuItem>
+              <MenuItem value={"schenker"}>Schenker, 62 timmar</MenuItem>
+            </Select>
+            
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required margin="normal">
+            <InputLabel htmlFor="payment">Betalningssätt</InputLabel>
+            <Select name = {"payment"} value={payment} onChange={handleChange("payment")}>
+              <MenuItem value={"creditcard"}>Kontokort</MenuItem>
+              <MenuItem value={"invoice"}>Faktura</MenuItem>
+              <MenuItem value={"swish"}>Swish</MenuItem>
+            </Select>
+          </FormControl>
         </Grid>
       </Grid>
-    </React.Fragment>
-  );
-}
+      
+      </Grid>
+      <div
+        style={{ display: "flex", marginTop: 50, justifyContent: "flex-end" }}
+      >
+        <Button
+          variant="contained"
+          disabled={!isEmpty || isError}
+          color="primary"
+          onClick={handleNext}
+          >
+          Nästa
+        </Button>
+        
+      </div>
+    </Fragment>
+  )
+};
+
+export default AddressForm;
