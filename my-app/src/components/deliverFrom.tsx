@@ -80,7 +80,7 @@ const deliverFrom = ({
         style={{ display: "flex", marginTop: 50, justifyContent: "flex-end" }}
       >
         <Button variant="contained" color="default" onClick={handleBack}>
-          Back
+          Tillbaka
         </Button>
         <Button
           style={{ marginLeft: 20 }}

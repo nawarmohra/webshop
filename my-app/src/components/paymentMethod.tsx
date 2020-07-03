@@ -65,6 +65,9 @@ return (
         />
       </Grid>
 
+      <div
+        style={{ display: "flex", marginTop: 50, justifyContent: "flex-end" }}
+      >
       <Button
         variant="contained"
         color="default"
@@ -80,6 +83,7 @@ return (
         onClick={handleNext}>
         Nästa
       </Button>
+      </div>
       </Grid>
       </Fragment>
 
