@@ -30,24 +30,31 @@ export default class Payment extends Component {
             <FormControlLabel 
             value="swish" 
             control={<Radio />} 
-            label="Pay directly from bank account" />
+            label="swish" />
             {this.state.selected === 'swish' && 
             <TextField
-              label="Your ID"
+              label="Det telefonnummer"
                
-              placeholder="personal number"
+              placeholder="telefonnummer"
               inputProps={{
                 minlength : 10,
                 maxlength: 10
               }} />}
 
-            <FormControlLabel
-              value="cash"
-              control={<Radio />}
-              label="Cash"
-            />
-            {this.state.selected === 'cash' && <p>Pay by cash when you recieve the order</p>}
 
+            <FormControlLabel
+              value="Paypal"
+              control={<Radio />}
+              label="Paypal"
+            />
+            {this.state.selected === 'Paypal' &&    
+            <TextField
+              label="Email"   
+              placeholder="Email"
+              inputProps={{
+                minlength : 10,
+                maxlength: 10
+              }} />}
 
           </RadioGroup>
           <FormHelperText>Required</FormHelperText>
