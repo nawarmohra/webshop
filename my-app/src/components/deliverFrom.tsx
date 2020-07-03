@@ -4,7 +4,7 @@ import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import Divider from "@material-ui/core/Divider"
 import Button from "@material-ui/core/Button"
-
+import CartProducts from './cart-products';
 
 const deliverFrom = ({
   handleNext,
@@ -14,6 +14,9 @@ const deliverFrom = ({
   return (
     <Fragment>
       <List disablePadding>
+ 
+      <CartProducts />
+     
         <ListItem>
           <ListItemText primary="First Name" secondary={firstName} />
         </ListItem>
