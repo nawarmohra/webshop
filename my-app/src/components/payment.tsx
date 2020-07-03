@@ -39,26 +39,24 @@ export default class Payment extends Component {
                 minlength : 10,
                 maxlength: 10
               }} />}
-
-
             <FormControlLabel
-              value="Paypal"
+              value="Klarna"
               control={<Radio />}
-              label="Paypal"
+              label="Klarna"
             />
-            {this.state.selected === 'Paypal' &&    
+            {this.state.selected === 'Klarna' &&    
             <TextField
               label="Email"   
               placeholder="Email"
               inputProps={{
                 minlength : 10,
-                maxlength: 10
+                maxlength: 100
               }} />}
-
           </RadioGroup>
           <FormHelperText>Required</FormHelperText>
-          
         </FormControl>
+
+        
       
        
       );

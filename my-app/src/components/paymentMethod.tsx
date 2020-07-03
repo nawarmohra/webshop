@@ -1,31 +1,40 @@
 import React, { Fragment } from "react"
 import Grid from "@material-ui/core/Grid"
-import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
-import Payment from "./payment"
-import Review from "./review"
+import { Typography, Radio } from "@material-ui/core"
 
 const paymentMethod = ({
   handleNext,
   handleBack,
   handleChange,
-  values: { cardName, cardNumber, cvv },
+  values: { cardName, cardNumber, cvv , DeliverMethod , Payment },
   filedError,
   isError
 }) => {
 
   const isEmpty = 
-  cardName.length > 0 && 
-  cardNumber.length > 0 && 
-  cvv.length > 0 
+  Payment.length > 0 && 
+  DeliverMethod.length > 0 
+
+
 
 
 return (
   <div style={{padding: 100, marginTop: 10, marginBottom: 10 }}>
 
   <Fragment>
-
+     <Typography variant="h6" gutterBottom>
+     Leveranssätt
+    </Typography>
+    <Grid>
+      <DeliverMethod />
+    </Grid>
+    <Typography variant="h6" gutterBottom>
+    Betalningsmetod
+    </Typography>
+    <Grid>
       <Payment />
+    </Grid>
       
   <div style={{ marginTop: 10, marginBottom: 10 }}>
         <Button
