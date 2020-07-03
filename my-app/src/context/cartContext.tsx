@@ -6,6 +6,7 @@ interface CartContextData {
   removeCartItem: (string) => void;
   updateCartItem: ({ id: string, count: number }) => void;
   emptyCart: () => void;
+  /* setSelectedShipping: (shipping: Shipping) => void, */
 }
 
 const CartContext = React.createContext<CartContextData>({
@@ -14,6 +15,7 @@ const CartContext = React.createContext<CartContextData>({
   removeCartItem: () => {},
   updateCartItem: () => {},
   emptyCart: () => {},
+  /* setSelectedShipping: (shipping: Shipping) => {}, */
 });
 
 const cartReducer = (state, action) => {
@@ -55,7 +57,8 @@ const cartReducer = (state, action) => {
       return state;
     case "empty_cart":
       localStorage.removeItem("cart");
-      state = [];
+      state.length = 0;
+      state = [...state];
       return state;
     default:
       return state;

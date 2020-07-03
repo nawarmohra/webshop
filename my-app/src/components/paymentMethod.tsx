@@ -2,6 +2,9 @@ import React, { Fragment } from "react"
 import Grid from "@material-ui/core/Grid"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
+import Payment from "./payment"
+import DeliverMethod from "./deliverMethod"
+import { Typography } from "@material-ui/core"
 
 const paymentMethod = ({
   handleNext,
@@ -12,81 +15,49 @@ const paymentMethod = ({
   isError
 }) => {
 
-const isEmpty = 
-cardName.length > 0 && 
-cardNumber.length > 0 && 
-cvv.length > 0
+  const isEmpty = 
+  cardName.length > 0 && 
+  cardNumber.length > 0 && 
+  cvv.length > 0 
+
 
 return (
+  <div style={{padding: 100, marginTop: 10, marginBottom: 10 }}>
+
   <Fragment>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-        <TextField
-          fullWidth
-          label="Namn på kortet"
-          name="cardName"
-          placeholder="Ditt namn"
-          defaultValue={cardName}
-          onChange={handleChange("cardName")}
-          margin="normal"
-          error={filedError.cardName !== ""}
-          helperText={filedError.cardName !== "" ? `${filedError.cardName}` : ""}
-          required
-        />
-      </Grid>
+     <Typography variant="h6" gutterBottom>
+     Leveranssätt
+    </Typography>
+    <Grid>
+      <DeliverMethod />
+    </Grid>
+    <Typography variant="h6" gutterBottom>
+    Betalningsmetod
+    </Typography>
+    <Grid>
+      <Payment />
+    </Grid>
+      
+  <div style={{ marginTop: 10, marginBottom: 10 }}>
+        <Button
+          variant="contained"
+          color="default"
+          onClick={handleBack}
+          style={{ marginRight: 20 }}>
+          Tillbaka
+        </Button>
 
-      <Grid item xs={12}>
-          <TextField
-          fullWidth
-          label="Kortnummer"
-          name="cardNumber"
-          placeholder="Kortnummer"
-          defaultValue={cardNumber}
-          onChange={handleChange("cardNumber")}
-          margin="normal"
-          error={filedError.cardNumber !== ""}
-          helperText={filedError.cardNumber !== "" ? `${filedError.cardNumber}` : ""}
-          required
-        />
-      </Grid>
-
-      <Grid item xs={12}>
-        <TextField
-          fullWidth
-          label="CVV"
-          name="cvv"
-          placeholder="CVV"
-          defaultValue={cvv}
-          onChange={handleChange("cvv")}
-          margin="normal"
-          error={filedError.cvv !== ""}
-          helperText={filedError.cvv !== "" ? `${filedError.cvv}` : ""}
-          required
-        />
-      </Grid>
-
-      <div
-        style={{ display: "flex", marginTop: 50, justifyContent: "flex-end" }}
-      >
-      <Button
-        variant="contained"
-        color="default"
-        onClick={handleBack}
-        style={{ marginRight: 20 }}>
-        Tillbaka
-      </Button>
-
-      <Button
-        variant="contained"
-        disabled={!isEmpty || isError}
-        color="primary"
-        onClick={handleNext}>
-        Nästa
-      </Button>
-      </div>
-      </Grid>
-      </Fragment>
-
+        <Button
+          variant="contained"
+          disabled={!isEmpty || isError}
+          color="primary"
+          onClick={handleNext}>
+          Nästa
+        </Button>
+  </div>
+      
+  </Fragment>
+  </div>
 )
 };
 
