@@ -1,14 +1,12 @@
 import React, { Fragment } from "react"
 import Typography from "@material-ui/core/Typography"
+import Review from "./review"
 
 const Success = () => {
   return (
     <Fragment>
       <Typography variant="h2" align="center">
-        Stort Tack!
-      </Typography>
-      <Typography component="p" align="center" style={{ marginTop: 40 }}>
-        Du får ett bekräftelsemejl.
+      <Review />
       </Typography>
     </Fragment>
   )

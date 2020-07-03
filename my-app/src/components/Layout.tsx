@@ -11,6 +11,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      maxWidth:"100",
       display: "flex",
     },
     appBar: {
@@ -53,6 +54,7 @@ export default function Layout() {
       <Header />
       <main className={classes.content}>
         <div className={classes.drawerHeader} />
+        <div style={{padding: 100, marginTop: 10, marginBottom: 10 }}>
         <Grid
           container
           direction="row"
@@ -64,6 +66,7 @@ export default function Layout() {
           <ProductList />
         </Grid>
         {/* </Cartprovider> */}
+        </div>
       </main>
     </div>
   );

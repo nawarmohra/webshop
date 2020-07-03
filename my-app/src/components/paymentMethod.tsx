@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import Payment from "./payment"
+import Review from "./review"
 
 const paymentMethod = ({
   handleNext,
@@ -13,10 +14,10 @@ const paymentMethod = ({
   isError
 }) => {
 
-const isEmpty = 
-cardName.length > 0 && 
-cardNumber.length > 0 && 
-cvv.length > 0 
+  const isEmpty = 
+  cardName.length > 0 && 
+  cardNumber.length > 0 && 
+  cvv.length > 0 
 
 
 return (
