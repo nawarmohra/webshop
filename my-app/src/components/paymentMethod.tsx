@@ -17,7 +17,8 @@ const paymentMethod = ({
 }) => {
 
 const isEmpty = 
-selected.length > 0 
+selected.length > 0
+
 // && 
 // credit.length > 0 && 
 // swish.length > 0 && 
@@ -50,7 +51,7 @@ return (
 
             <FormControlLabel 
             
-            value="credit"
+            value="swish"
               control={<Radio />}
               label="Swish"
             />
