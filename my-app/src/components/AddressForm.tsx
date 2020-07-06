@@ -38,7 +38,7 @@ const AddressForm  = ({
   <div style={{padding: 100, marginTop: 10, marginBottom: 10 }}>
     <Fragment>
       <Typography variant="h6" gutterBottom>
-        Shipping address
+        Adressuppgifter
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
@@ -204,8 +204,8 @@ const AddressForm  = ({
             <InputLabel htmlFor="shipping">Leveranssätt</InputLabel>
             <Select value={shipping} onChange={handleChange("shipping")}>
               <MenuItem value={"PostNord"}>PostNord, 62 timmar</MenuItem>
-              <MenuItem value={"dhl"}>DHL Express, 24 timmar, 100kr</MenuItem>
-              <MenuItem value={"schenker"}>Schenker, 62 timmar</MenuItem>
+              <MenuItem value={"DHL"}>DHL Express, 24 timmar, 100kr</MenuItem>
+              <MenuItem value={"Schenker"}>Schenker, 62 timmar</MenuItem>
             </Select>
             
           </FormControl>

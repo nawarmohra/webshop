@@ -7,6 +7,7 @@ import PaymentMethod from "./paymentMethod";
 import DeliverFrom from "./deliverFrom";
 import Success from "./Success";
 //import Header from "./Header";
+import creditCard from './payments/creditCard'
 
 const emailRegex = RegExp(/^[^@]+@[^@]+\.[^@]+$/);
 const phoneRegex = RegExp(/^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4,6})$/);
@@ -28,9 +29,13 @@ const StepForm = () => {
     shipping: "",
     payment: "",
     date: "",
-    cardName: "", 
-    cardNumber: "", 
-    cvv: ""
+    swish: "",
+    selected: []
+    // credit: "", 
+    // swish: "",
+    // paypal: "",
+    
+    // cvv: ""
   });
 
   const [filedError, setFieldError] = useState({
@@ -39,18 +44,8 @@ const StepForm = () => {
 
   const [isError, setIsError] = useState(false);
 
-    // const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
-  
-
-  //const { emptyCart } = useContext(cartContext);
-
   const handleNext = () =>setSteps (steps + 1);
 
-  //   FIXA!!!!!! if (activeStep === steps.length - 1) {
-  //     emptyCart();
-  //   }
-  // };
   const handleBack = () =>setSteps (steps - 1); 
 
    // Handle fields change
@@ -101,6 +96,37 @@ const StepForm = () => {
         ? ""
         : "Ogiltlig telefonnr. ";
       break;
+      case "cardNumber":
+        formErrors.swish = lengthValidate
+          ? "Minst två bokstäver"
+          : "";  
+      break;
+      // break;
+      // case "credit":
+      //   formErrors.credit = lengthValidate
+      //     ? "Minst två bokstäver"
+      //     : "";  
+      // break;
+      // case "swish":
+      //   formErrors.swish = lengthValidate
+      //     ? "Minst två bokstäver"
+      //     : "";  
+      // break;
+      // case "paypal":
+      //   formErrors.paypal = lengthValidate
+      //     ? "Minst två bokstäver"
+      //     : "";  
+      // break;
+      // case "cardNumber":
+      //   formErrors.cardNumber = lengthValidate
+      //     ? "Minst två bokstäver"
+      //     : "";  
+      // break;
+      
+
+      //selected, credit, swish, paypal, cardNumber, cvv 
+
+      
     
     default:
       break;
@@ -118,17 +144,6 @@ const StepForm = () => {
 
 const getStepContent = step =>  {
   switch (step) {
-//     case 0:
-//       return <AddressForm />;
-//     case 1:
-//       return <PaymentMethod />;
-//     case 2:
-//       return <DeliverFrom />;
-//     default:
-//       throw new Error("Unknown step");
-//   }
-// }
-
     case 0:
       return (
           <AddressForm 
@@ -166,8 +181,6 @@ const getStepContent = step =>  {
   return (
     <Fragment>
       {steps === labels.length ? (
-
-//LOOPEN HÄR????
         <Success />
       ) : (
         <Fragment>

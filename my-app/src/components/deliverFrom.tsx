@@ -5,23 +5,22 @@ import ListItemText from "@material-ui/core/ListItemText"
 import Divider from "@material-ui/core/Divider"
 import Button from "@material-ui/core/Button"
 
-
 const deliverFrom = ({
   handleNext,
   handleBack,
-  values: { firstName, lastName, adress, zip, city, email, phone, shipping, payment, cardName, cardNumber, cvv }
+  values: { firstName, lastName, adress, zip, city, email, phone, shipping, selected }
 }) => {
   return (
     <Fragment>
       <List disablePadding>
         <ListItem>
-          <ListItemText primary="First Name" secondary={firstName} />
+          <ListItemText primary="Förnamn" secondary={firstName} />
         </ListItem>
 
         <Divider />
 
         <ListItem>
-          <ListItemText primary="Last Name" secondary={lastName} />
+          <ListItemText primary="Efternamn" secondary={lastName} />
         </ListItem>
 
         <Divider />
@@ -48,6 +47,8 @@ const deliverFrom = ({
           <ListItemText primary="E-postadress" secondary={email} />
         </ListItem>
 
+        <Divider />
+
         <ListItem>
           <ListItemText primary="Telefonnummer" secondary={phone} />
         </ListItem>
@@ -61,10 +62,8 @@ const deliverFrom = ({
         <Divider />
 
         <ListItem>
-          <ListItemText primary="Betalningssätt" secondary={payment} />
+          <ListItemText primary="Betalningssätt" secondary={selected} />
         </ListItem>
-
-        <Divider />
 
         <Divider />
 
@@ -96,3 +95,4 @@ const deliverFrom = ({
 }
 
 export default deliverFrom;
+
