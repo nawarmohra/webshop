@@ -2,16 +2,16 @@ import React, { useState, Fragment } from "react";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import cartContext from "../context/cartContext";
 import AddressForm from "./AddressForm";
 import PaymentMethod from "./paymentMethod";
 import DeliverFrom from "./deliverFrom";
 import Success from "./Success";
 //import Header from "./Header";
+import creditCard from "./payments/creditCard";
 
 const emailRegex = RegExp(/^[^@]+@[^@]+\.[^@]+$/);
 const phoneRegex = RegExp(/^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4,6})$/);
-const zipRegex = RegExp(/^\D?(\d{3})\D?\D?(\d{0})\D?(\d{2})$/); 
+const zipRegex = RegExp(/^\D?(\d{3})\D?\D?(\d{0})\D?(\d{2})$/);
 
 const labels = ["Adressuppgifter", "Betalning", "Bekräftelse"];
 
@@ -22,117 +22,109 @@ const StepForm = () => {
     firstName: "",
     lastName: "",
     adress: "",
-    zip:"",
-    city:"",
+    zip: "",
+    city: "",
     email: "",
     phone: "",
     shipping: "",
     payment: "",
     date: "",
-    cardName: "", 
-    cardNumber: "", 
-    cvv: ""
   });
 
   const [filedError, setFieldError] = useState({
-    ...fields
+    ...fields,
   });
 
   const [isError, setIsError] = useState(false);
 
-    // const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
-  
+  const handleNext = () => setSteps(steps + 1);
 
-  //const { emptyCart } = useContext(cartContext);
+  const handleBack = () => setSteps(steps - 1);
 
-  const handleNext = () =>setSteps (steps + 1);
-
-  //   FIXA!!!!!! if (activeStep === steps.length - 1) {
-  //     emptyCart();
-  //   }
-  // };
-  const handleBack = () =>setSteps (steps - 1); 
-
-   // Handle fields change
-  const handleChange = input => ({ target: { value } }) => {
+  // Handle fields change
+  const handleChange = (input) => ({ target: { value } }) => {
     // Set values to the fields
     setFields({
       ...fields,
-      [input]: value
+      [input]: value,
     });
 
-  // Handle errors
-  const formErrors = { ...filedError };
-  const lengthValidate = value.length > 0 && value.length < 2;
-  
-  switch (input) {
-    case "firstName":
-      formErrors.firstName = lengthValidate
-        ? "Minst två bokstäver"
-        : "";
-      break;
-    case "lastName":
-      formErrors.lastName = lengthValidate
-        ? "Minst två bokstäver"
-        : "";
-      break;
+    // Handle errors
+    const formErrors = { ...filedError };
+    const lengthValidate = value.length > 0 && value.length < 2;
+
+    switch (input) {
+      case "firstName":
+        formErrors.firstName = lengthValidate ? "Minst två bokstäver" : "";
+        break;
+      case "lastName":
+        formErrors.lastName = lengthValidate ? "Minst två bokstäver" : "";
+        break;
       case "adress":
-        formErrors.adress = lengthValidate
-          ? "Minst två bokstäver"
-          : "";  
-      break;
+        formErrors.adress = lengthValidate ? "Minst två bokstäver" : "";
+        break;
       case "zip":
-      formErrors.zip = zipRegex.test(value)
-        ? ""
-        : "Ange giltligt postnr, fem siffror.";
-      break;  
+        formErrors.zip = zipRegex.test(value)
+          ? ""
+          : "Ange giltligt postnr, fem siffror.";
+        break;
       case "city":
-        formErrors.city = lengthValidate
-          ? "Minst två bokstäver"
-          : "";  
-      break;
-    case "email":
-      formErrors.email = emailRegex.test(value)
-        ? ""
-        : "Ogiltlig e-postadress";
-      break;
-    case "phone":
-      formErrors.phone = phoneRegex.test(value)
-        ? ""
-        : "Ogiltlig telefonnr. ";
-      break;
-    
-    default:
-      break;
-  }
+        formErrors.city = lengthValidate ? "Minst två bokstäver" : "";
+        break;
+      case "email":
+        formErrors.email = emailRegex.test(value)
+          ? ""
+          : "Ogiltlig e-postadress";
+        break;
+      case "phone":
+        formErrors.phone = phoneRegex.test(value) ? "" : "Ogiltlig telefonnr. ";
+        break;
+      // case "cardNumber":
+      //   formErrors.swish = lengthValidate ? "Minst två bokstäver" : "";
+      //   break;
+      // break;
+      // case "credit":
+      //   formErrors.credit = lengthValidate
+      //     ? "Minst två bokstäver"
+      //     : "";
+      // break;
+      // case "swish":
+      //   formErrors.swish = lengthValidate
+      //     ? "Minst två bokstäver"
+      //     : "";
+      // break;
+      // case "paypal":
+      //   formErrors.paypal = lengthValidate
+      //     ? "Minst två bokstäver"
+      //     : "";
+      // break;
+      // case "cardNumber":
+      //   formErrors.cardNumber = lengthValidate
+      //     ? "Minst två bokstäver"
+      //     : "";
+      // break;
 
-  // set error hook
-  Object.values(formErrors).forEach(error =>
-    error.length > 0 ? setIsError(true) : setIsError(false)
-  );
-  // set errors hook
-  setFieldError({
-    ...formErrors
-  });
-};
+      //selected, credit, swish, paypal, cardNumber, cvv
 
-const getStepContent = step =>  {
-  switch (step) {
-//     case 0:
-//       return <AddressForm />;
-//     case 1:
-//       return <PaymentMethod />;
-//     case 2:
-//       return <DeliverFrom />;
-//     default:
-//       throw new Error("Unknown step");
-//   }
-// }
+      default:
+        break;
+    }
 
-    case 0:
-      return (
-          <AddressForm 
+    // set error hook
+    Object.values(formErrors).forEach((error) =>
+      error.length > 0 ? setIsError(true) : setIsError(false)
+    );
+    // set errors hook
+    setFieldError({
+      ...formErrors,
+    });
+  };
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return (
+          <AddressForm
             handleNext={handleNext}
             handleChange={handleChange}
             values={fields}
@@ -142,7 +134,7 @@ const getStepContent = step =>  {
         );
       case 1:
         return (
-          <PaymentMethod 
+          <PaymentMethod
             handleNext={handleNext}
             handleBack={handleBack}
             handleChange={handleChange}
@@ -153,7 +145,7 @@ const getStepContent = step =>  {
         );
       case 2:
         return (
-          <DeliverFrom 
+          <DeliverFrom
             handleNext={handleNext}
             handleBack={handleBack}
             values={fields}
@@ -167,18 +159,15 @@ const getStepContent = step =>  {
   return (
     <Fragment>
       {steps === labels.length ? (
-
-//LOOPEN HÄR????
-
-
         <Success />
       ) : (
         <Fragment>
           <Stepper
             activeStep={steps}
             style={{ paddingTop: 30, paddingBottom: 50 }}
-            alternativeLabel>
-            {labels.map(label => (
+            alternativeLabel
+          >
+            {labels.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
               </Step>
@@ -190,4 +179,4 @@ const getStepContent = step =>  {
     </Fragment>
   );
 };
-  export default StepForm;
+export default StepForm;

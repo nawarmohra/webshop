@@ -1,64 +1,146 @@
-import React, { Fragment } from "react"
-import Grid from "@material-ui/core/Grid"
-import TextField from "@material-ui/core/TextField"
-import Button from "@material-ui/core/Button"
-import Payment from "./payment"
-import DeliverMethod from "./deliverMethod"
-import { Typography } from "@material-ui/core"
+import React, { Fragment, useState } from "react";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
-const paymentMethod = ({
+import {
+  FormControl,
+  InputLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from "@material-ui/core";
+import CreditCard from "./payments/creditCard";
+
+const PaymentMethod = ({
   handleNext,
   handleBack,
   handleChange,
-  values: { cardName, cardNumber, cvv },
+  values: { payment },
   filedError,
-  isError
+  isError,
 }) => {
+  // const isEmpty = payment.length > 0;
 
-  const isEmpty = 
-  cardName.length > 0 && 
-  cardNumber.length > 0 && 
-  cvv.length > 0 
+  const validatePayment = () => {
+    switch (payment) {
+      case "credit":
+        if (
+          paymentData.cardHolder.length > 0 &&
+          paymentData.cardNumber.length > 0 &&
+          paymentData.cardExpire.length > 0 &&
+          paymentData.cvv.length > 0
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      case "swish":
+        return paymentData.swish.length > 0 ? true : false;
+      case "paypal":
+        return paymentData.paypalEPost.length > 0 ? true : false;
+      default:
+        return false;
+    }
+  };
 
+  const handlePaymentData = (input) => ({ target: { value } }) => {
+    setPaymentData({
+      ...paymentData,
+      [input]: value,
+    });
+  };
 
-return (
-  <div style={{padding: 100, marginTop: 10, marginBottom: 10 }}>
+  const [paymentData, setPaymentData] = useState({
+    cardHolder: "",
+    cardNumber: "",
+    cardExpire: "",
+    cvv: "",
+    swish: "",
+    paypalEPost: "",
+  });
 
-  <Fragment>
-     <Typography variant="h6" gutterBottom>
-     Leveranssätt
-    </Typography>
-    <Grid>
-      <DeliverMethod />
-    </Grid>
-    <Typography variant="h6" gutterBottom>
-    Betalningsmetod
-    </Typography>
-    <Grid>
-      <Payment />
-    </Grid>
-      
-  <div style={{ marginTop: 10, marginBottom: 10 }}>
-        <Button
-          variant="contained"
-          color="default"
-          onClick={handleBack}
-          style={{ marginRight: 20 }}>
-          Tillbaka
-        </Button>
+  return (
+    <div style={{ padding: 100, marginTop: 10, marginBottom: 10 }}>
+      <Fragment>
+        {/* <Payment /> */}
 
-        <Button
-          variant="contained"
-          disabled={!isEmpty || isError}
-          color="primary"
-          onClick={handleNext}>
-          Nästa
-        </Button>
-  </div>
-      
-  </Fragment>
-  </div>
-)
+        <Grid item xs={12} sm={6}>
+          <FormControl fullWidth required margin="normal">
+            {/* <FormControlLabel htmlFor="gender">Gender /> */}
+            <RadioGroup value={payment} onChange={handleChange("payment")}>
+              <FormControlLabel
+                value="credit"
+                control={<Radio />}
+                label="Credit Card"
+              />
+              {payment === "credit" && (
+                <CreditCard handlePaymentData={handlePaymentData} />
+              )}
+
+              <FormControlLabel
+                value="swish"
+                control={<Radio />}
+                label="Swish"
+              />
+              {payment === "swish" && (
+                <TextField
+                  label="Swish"
+                  placeholder="Swish"
+                  onChange={handlePaymentData("swish")}
+                  inputProps={{
+                    minlength: 10,
+                    maxlength: 10,
+                  }}
+                />
+              )}
+
+              <FormControlLabel
+                value="paypal"
+                control={<Radio />}
+                label="Paypal"
+              />
+              {payment === "paypal" && (
+                <TextField
+                  label="E-post"
+                  placeholder="Email"
+                  onChange={handlePaymentData("paypalEPost")}
+                  inputProps={{
+                    minlength: 10,
+                    maxlength: 10,
+                  }}
+                />
+              )}
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+
+        <div
+          style={{ display: "flex", marginTop: 50, justifyContent: "flex-end" }}
+        ></div>
+
+        <div style={{ marginTop: 10, marginBottom: 10 }}>
+          <Button
+            variant="contained"
+            color="default"
+            onClick={handleBack}
+            style={{ marginRight: 20 }}
+          >
+            Tillbaka
+          </Button>
+
+          <Button
+            variant="contained"
+            disabled={!validatePayment() || isError}
+            color="primary"
+            onClick={handleNext}
+          >
+            Nästa
+          </Button>
+        </div>
+      </Fragment>
+    </div>
+  );
 };
 
-export default paymentMethod;
+export default PaymentMethod;
