@@ -86,7 +86,7 @@ const PaymentMethod = ({
               {payment === "swish" && (
                 <TextField
                   label="Swish"
-                  placeholder="Swish"
+                  placeholder="Ditt telefonnummer"
                   onChange={handlePaymentData("swish")}
                   inputProps={{
                     minlength: 10,
@@ -103,7 +103,7 @@ const PaymentMethod = ({
               {payment === "paypal" && (
                 <TextField
                   label="E-post"
-                  placeholder="Email"
+                  placeholder="E-post"
                   onChange={handlePaymentData("paypalEPost")}
                   inputProps={{
                     minlength: 10,

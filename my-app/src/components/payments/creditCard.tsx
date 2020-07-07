@@ -20,7 +20,7 @@ export class creditCard extends Component<creditCardInterface> {
       <div>
         <form noValidate autoComplete="off">
           <TextField
-            label="Card Holder"
+            label="Namn på kortet"
             type="text"
             onChange={this.props.handlePaymentData("cardHolder")}
             inputProps={{
@@ -29,7 +29,7 @@ export class creditCard extends Component<creditCardInterface> {
             }}
           />
           <TextField
-            label="Card Number"
+            label="Kortnummer"
             name="cardNumber"
             onChange={this.props.handlePaymentData("cardNumber")}
             inputProps={{
@@ -39,7 +39,7 @@ export class creditCard extends Component<creditCardInterface> {
             }}
           />
           <TextField
-            label="Expires"
+            label="Utgångsdatum"
             type="month"
             defaultValue="2020-05"
             onChange={this.props.handlePaymentData("cardExpire")}

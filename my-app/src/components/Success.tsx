@@ -8,10 +8,10 @@ const Success = () => {
   return (
     <Fragment>
       <Typography variant="h2" align="center">
-        Stort Tack!
+        Tack för din beställning!
       </Typography>
       <Typography component="p" align="center" style={{ marginTop: 40 }}>
-        Du får ett bekräftelsemejl.
+        Det skickas bekräftelse till din din e-post.
       </Typography>
     </Fragment>
   );
